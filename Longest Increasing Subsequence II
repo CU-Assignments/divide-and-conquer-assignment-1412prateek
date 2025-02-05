@@ -1,0 +1,17 @@
+import java.util.TreeMap;
+
+class Solution {
+    public int lengthOfLIS(int[] nums, int k) {
+        TreeMap<Integer, Integer> dp = new TreeMap<>();
+        int result = 0;
+
+        for (int num : nums) {
+            Integer prev = dp.floorKey(num - k);
+            int currentLength = (prev == null ? 0 : dp.get(prev)) + 1;
+            dp.put(num, Math.max(dp.getOrDefault(num, 0), currentLength));
+            result = Math.max(result, dp.get(num));
+        }
+
+        return result;
+    }
+}
